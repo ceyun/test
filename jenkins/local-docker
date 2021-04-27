@@ -1,0 +1,32 @@
+Jenkins setup
+After installing Docker, download the latest stable Jenkins image by running:
+
+docker image pull jenkins/jenkins:lts
+
+Run the container by attaching the volume and assigning the targeted port.
+In this example, we'll also run it in detached mode.
+Here is the command to run your Docker container:
+
+docker container run -d \
+    -p [YOUR PORT]:8080 \
+    -v [YOUR VOLUME]:/var/jenkins_home \
+    --name jenkins-local \
+    jenkins/jenkins:lts
+
+Ex;
+And now, we’re ready to take a look at an example of how you could run this command:
+
+docker container run -d -p 8082:8080 \
+    -v jenkinsvol1:/var/jenkins_home \
+    --name jenkins-local \
+    jenkins/jenkins:lts
+
+As a part of the Jenkins setup, we need to view the password inside the container instance.
+In order to do this, we need to use the CONTAINER ID (or the name) and run docker exec.
+Here is the full command:
+
+docker container exec \
+    [CONTAINER ID or NAME] \
+    sh -c "cat /var/jenkins_home/secrets/initialAdminPassword"
+
+https://rangle.io/blog/running-jenkins-and-persisting-state-locally-using-docker-2/
