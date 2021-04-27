@@ -9,7 +9,6 @@
 	</parent>
 	<groupId>com.ceyun.m</groupId>
 	<artifactId>mapstructTest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>mapstructTest</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

@@ -1,0 +1,40 @@
+
+stage ('Build') {
+    node('master'){
+
+        echo "Build STARTED"
+
+        foo("ali", "veli", "selami", ['1','2','3'], "aliVeliSelami");
+
+        echo "Build ENDED"
+    }
+}
+
+
+def foo(host, folder, fileName, List<String> nodes, String slackMessage) {
+
+    def branchedStages = [:]
+
+    for (n in nodes) {
+        echo n;
+        def host1 = host + n;
+        def host2 = 'host-' + n;
+        def host3 = 'prod-up-' + n;
+        branchedStages[host2] = {
+            node(host3) {
+                echo host1;
+                //deploySub(host, folder, n, fileName);
+            }
+        }
+    }
+
+    // Execute the stages in parallel
+    parallel branchedStages
+
+}
+
+
+def deploySub(host, folder, node, fileName) {
+    sh("echo Deployment started on ${host}${node}${fileName}")
+}
+
